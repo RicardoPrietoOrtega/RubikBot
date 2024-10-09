@@ -12,7 +12,7 @@ class CuboPainter extends CustomPainter {
   ];
 
   final List<List<int>> coords = [    
-    [3, 0], // Izquierda (cara 0 - Rojo)
+    [3, 0], // Izquierda (cara 0 - Rojo) Hola nuevo mundo
     [3, 3], // Frente (cara 3 - Azul)
     [3, 6], // Derecha (cara 4 - Naranja)
     [3, 9], // Atrás (cara 5 - Verde)
