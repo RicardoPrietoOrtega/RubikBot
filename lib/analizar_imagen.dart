@@ -10,7 +10,7 @@ Future<List> analizarImagen(String imagePath, List cubo, int cara) async {
 
   if (image != null) {    
     int width = image.width;
-    int l = (width / 9).toInt();
+    int l = width ~/ 9;
     String color = "vacio";
     int k = cara;
     print("Cara: $cara");
