@@ -1,10 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/analizar_imagen.dart';
-import 'package:provider/provider.dart'; 
+import 'package:provider/provider.dart';
 import 'providers/provider.dart';
-
-var myProvider;
 
 class EscanearCubo extends StatelessWidget {
   const EscanearCubo({
@@ -19,25 +17,19 @@ class EscanearCubo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    myProvider = Provider.of<MyProvider>(context);    
-    return ChangeNotifierProvider(
-      create: (context)=>MyProvider(),
-        child: FloatingActionButton(
-        onPressed: () async {
-          try {          
-            await _initializeControllerFuture;        
-            final image = await _controller.takePicture();          
-            List cubAux = myProvider.cubo;
-            int cara = myProvider.cara;
-            cubAux = analizarImagen(image.path, cubAux, cara*6) as List;
-            myProvider.cara = cara++;
-            myProvider.cubo = cubAux;
-          } catch (e) {          
-            //print(e);
-          }
-        },
-        child: const Icon(Icons.camera),
-      )
+    return FloatingActionButton(
+      onPressed: () async {
+        try {
+          await _initializeControllerFuture;
+          final image = await _controller.takePicture();
+          int cara = Provider.of<MyProvider>(context, listen: false).cara; // Obtener la cara actual
+          await analizarImagen(image.path, context, cara * 9); // Llama a analizarImagen pasando el contexto y cara
+          Provider.of<MyProvider>(context, listen: false).cara = cara + 1; // Cambiar la cara de forma correcta
+        } catch (e) {
+          print("Error: $e");
+        }
+      },
+      child: const Icon(Icons.camera),
     );
   }
 }

@@ -1,20 +1,19 @@
 import 'package:flutter/foundation.dart';
 
-class MyProvider with ChangeNotifier {
+class MyProvider extends ChangeNotifier {
+  List<int> _cubo = List.filled(54, 0); // Inicializa el cubo con 54 posiciones
   int _cara = 0;
-  List _cubo = [6,6,6,6,6,6,6,6,6, 6,6,6,6,6,6,6,6,6, 6,6,6,6,6,6,6,6,6, 6,6,6,6,6,6,6,6,6, 6,6,6,6,6,6,6,6,6, 6,6,6,6,6,6,6,6,6];
-    
+
+  List<int> get cubo => _cubo;
   int get cara => _cara;
 
-  set cara(int cara){
-    _cara = cara;
-    notifyListeners();
+  set cubo(List<int> newCubo) {
+    _cubo = newCubo;
+    notifyListeners(); // Notifica a los listeners cuando el cubo cambia
   }
 
-  List get cubo => _cubo;
-
-  set cubo(List cubo){
-    _cubo = cubo;
-    notifyListeners();
-  }     
+  set cara(int newCara) {
+    _cara = newCara;
+    notifyListeners(); // Notifica a los listeners cuando la cara cambia
+  }
 }
