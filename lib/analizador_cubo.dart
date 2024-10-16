@@ -9,8 +9,7 @@ class DisplayPictureScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Muestra la foto')),
-      body: Image.file(File(imagePath)),
-      
+      body: Image.file(File(imagePath)),  
     );
   }
 }
