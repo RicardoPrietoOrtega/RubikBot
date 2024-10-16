@@ -1,13 +1,14 @@
 import 'dart:io';
+import 'dart:math';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 import 'package:provider/provider.dart';
 import 'providers/provider.dart';
 
-const int umbralAlto = 200;
+/*const int umbralAlto = 200;
 const int umbralMedio = 150;
-const int umbralBajo = 60;
+const int umbralBajo = 60;*/
 
 Future<List> analizarImagen(String imagePath, BuildContext context, int cara) async {
   final myProvider = Provider.of<MyProvider>(context, listen: false); // Obtén el Provider
@@ -31,8 +32,8 @@ Future<List> analizarImagen(String imagePath, BuildContext context, int cara) as
           num sumR = 0, sumG = 0, sumB = 0;
           int pixelCount = 0;
 
-          for (int i = -2; i <= 2; i++) {
-            for (int j = -2; j <= 2; j++) {
+          for (int i = 10; i <= 20; i++) {
+            for (int j = 10; j <= 20; j++) {
               int pixelX = (x * (l + l)) + i;
               int pixelY = (y * (l + l)) + j;
 
@@ -50,28 +51,30 @@ Future<List> analizarImagen(String imagePath, BuildContext context, int cara) as
           num avgG = sumG ~/ pixelCount;
           num avgB = sumB ~/ pixelCount;
 
+          num ref = max(avgR, max(avgG, avgB));
+
           String color = "vacio";
-          if (avgR >= umbralAlto && avgG >= umbralAlto && avgB >= umbralAlto) {
+          if (avgR >= ref * 0.85 && avgG >= ref * 0.85 && avgB >= ref * 0.85) {
             color = "Blanco";
             nuevoCubo[k] = 1;
-          } else if (avgR >= umbralMedio && avgG >= umbralMedio && avgB < umbralMedio) {
+          } else if (avgR >= ref * 0.85 && avgG >= ref * 0.85 && avgB < ref * 0.85) {
             color = "Amarillo";
             nuevoCubo[k] = 3;
-          } else if (avgR >= umbralMedio && avgG >= 50 && avgB < 60) {
+          } else if (avgR >= ref * 0.85 && avgG >= ref * 0.4 && avgB < ref * 0.85) {
             color = "Naranja";
             nuevoCubo[k] = 0;
-          } else if (avgR >= umbralMedio && avgG < umbralBajo && avgB < umbralBajo) {
+          } else if (avgR >= ref * 0.95 && avgG < ref * 0.8 && avgB < ref * 0.8) {
             color = "Rojo";
             nuevoCubo[k] = 2;
-          } else if (avgR < umbralBajo && avgG >= 80 && avgB < umbralBajo) {
+          } else if (avgR < ref * 0.8 && avgG >= ref * 0.95 && avgB < ref * 0.8) {
             color = "Verde";
             nuevoCubo[k] = 5;
-          } else if (avgR < 100 && avgG < umbralMedio && avgB >= umbralMedio) {
+          } else if (avgR < ref * 0.8 && avgG < ref * 0.8 && avgB >= ref * 0.95) {
             color = "Azul";
             nuevoCubo[k] = 4;
           }
 
-          print('Celda en ($x, $y): $color --> Promedio R=$avgR, G=$avgG, B=$avgB');
+          print('Celda en ($x, $y): $color --> Promedio Max: $ref R=$avgR, G=$avgG, B=$avgB');
           k++;
         }
       }

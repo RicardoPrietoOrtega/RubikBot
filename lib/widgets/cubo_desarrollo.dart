@@ -10,8 +10,8 @@ class CuboDesarrollo extends StatelessWidget {
     final myProvider = Provider.of<MyProvider>(context);
     final screenSize = MediaQuery.of(context).size;
 
-    double rectSize = 20.0; // Tamaño de cada rectángulo
-    double spacing = 5.0;    // Espaciado entre rectángulos
+    double rectSize = 19.0; // Tamaño de cada rectángulo
+    double spacing = 3.0;    // Espaciado entre rectángulos
 
     final List<List<double>> coords = [
       [3.15, 0], // Izquierda
@@ -54,6 +54,7 @@ class CuboPainter extends CustomPainter {
     const Color.fromARGB(255, 255, 255, 0),     // Cara atrás (Amarillo)
     const Color.fromARGB(255, 0, 0, 255),       // Cara superior (Azul)
     const Color.fromARGB(255, 0, 255, 0),       // Cara inferior (Verde)
+    const Color.fromARGB(255, 48, 48, 48),       // Cara inferior (Verde)
   ];
   
   final List<List<double>> coords; // Coordenadas de las caras del cubo

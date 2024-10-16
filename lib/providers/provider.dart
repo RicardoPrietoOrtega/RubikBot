@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class MyProvider extends ChangeNotifier {
-  List<int> _cubo = List.filled(54, 0); // Inicializa el cubo con 54 posiciones
+  List<int> _cubo = List.filled(54, 6); // Inicializa el cubo con 54 posiciones
   int _cara = 0;
 
   List<int> get cubo => _cubo;
