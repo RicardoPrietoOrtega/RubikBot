@@ -60,7 +60,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Escaner de Rubic')),
+      appBar: AppBar(title: const Text('Rubik Robot')),
       body: Stack(
         children: [
           FutureBuilder<void>(
