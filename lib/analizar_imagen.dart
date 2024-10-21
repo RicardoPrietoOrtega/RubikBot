@@ -6,10 +6,6 @@ import 'package:image/image.dart' as img;
 import 'package:provider/provider.dart';
 import 'providers/provider.dart';
 
-/*const int umbralAlto = 200;
-const int umbralMedio = 150;
-const int umbralBajo = 60;*/
-
 Future<List> analizarImagen(String imagePath, BuildContext context, int cara) async {
   final myProvider = Provider.of<MyProvider>(context, listen: false); // Obtén el Provider
 
@@ -22,8 +18,6 @@ Future<List> analizarImagen(String imagePath, BuildContext context, int cara) as
       int width = image.width;
       int l = width ~/ 9; // Calcular el tamaño de cada "celda"
       int k = cara;
-
-      print("Cara: $cara");
 
       List<int> nuevoCubo = List.from(myProvider.cubo); // Crea una copia del cubo original
 
@@ -57,13 +51,13 @@ Future<List> analizarImagen(String imagePath, BuildContext context, int cara) as
           if (avgR >= ref * 0.85 && avgG >= ref * 0.85 && avgB >= ref * 0.85) {
             color = "Blanco";
             nuevoCubo[k] = 1;
-          } else if (avgR >= ref * 0.85 && avgG >= ref * 0.85 && avgB < ref * 0.85) {
+          } else if (avgR >= ref * 0.85 && avgG >= ref * 0.75 && avgB < ref * 0.75) {
             color = "Amarillo";
             nuevoCubo[k] = 3;
-          } else if (avgR >= ref * 0.85 && avgG >= ref * 0.4 && avgB < ref * 0.85) {
+          } else if (avgR >= ref * 0.85 && avgG >= ref * 0.35 && avgB < ref * 0.35) {
             color = "Naranja";
             nuevoCubo[k] = 0;
-          } else if (avgR >= ref * 0.95 && avgG < ref * 0.8 && avgB < ref * 0.8) {
+          } else if (avgR >= ref * 0.95 && avgG < ref * 0.6 && avgB < ref * 0.8) {
             color = "Rojo";
             nuevoCubo[k] = 2;
           } else if (avgR < ref * 0.8 && avgG >= ref * 0.95 && avgB < ref * 0.8) {
@@ -78,13 +72,12 @@ Future<List> analizarImagen(String imagePath, BuildContext context, int cara) as
           k++;
         }
       }
-
       myProvider.cubo = nuevoCubo; // Actualiza el cubo en el Provider
     } else {
-      print("No se pudo decodificar la imagen.");
+      //print("No se pudo decodificar la imagen.");
     }
   } catch (e) {
-    print("Error al analizar la imagen: $e");
+    //print("Error al analizar la imagen: $e");
   }
 
   return myProvider.cubo; // Retorna el cubo actualizado
